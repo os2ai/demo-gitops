@@ -7,5 +7,5 @@ dependencies:
     version: 0.3.1
     repository: https://cloudnative-pg.github.io/charts
   - name: os2adgang-pilot
-    version: 0.0.7
+    version: 0.0.9
     repository: https://gitlab.deranged.dk/api/v4/projects/677/packages/helm/all
