@@ -105,6 +105,15 @@ litellm:
         guardrails:
           - message_trimming
 
+      - model_name: gpt-oss-120b
+        litellm_params:
+          model: gpt-oss-120b
+          api_key: os.environ/SHLLM_API_KEY
+          api_base: https://litellm.shllm.computerome-k8s.dk/v1
+          max_tokens: 8192
+        guardrails:
+          - message_trimming
+
     guardrails:
       - guardrail_name: "message_trimming"
         litellm_params:
@@ -201,7 +210,3 @@ litellm:
 
   # Additional environment variables to be added to the deployment as a list of k8s env vars
   extraEnvVars: []
-
-
-
-
