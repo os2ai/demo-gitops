@@ -52,11 +52,11 @@ prometheus-stack:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
       hosts:
-        - obs.stgai.itkdev.dk
+        - grafana.komm01.computerome-k8s.dk
       tls:
         - secretName: grafana-tls
           hosts:
-            - obs.stgai.itkdev.dk
+            - grafana.komm01.computerome-k8s.dk
 
     additionalDataSources:
       - name: Loki
@@ -97,8 +97,8 @@ prometheus-stack:
 
     grafana.ini:
       server:
-        domain: obs.stgai.itkdev.dk
-        root_url: https://obs.stgai.itkdev.dk
+        domain: grafana.komm01.computerome-k8s.dk
+        root_url: https://grafana.komm01.computerome-k8s.dk
       auth.anonymous:
         enabled: false
       auth.basic:

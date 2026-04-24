@@ -43,7 +43,7 @@ argo-cd:
   global:
     # -- Default domain used by all components
     ## Used for ingresses, certificates, SSO, notifications, etc.
-    domain: argo.stgai.itkdev.dk
+    domain: argocd.komm01.computerome-k8s.dk
 
     # -- Runtime class name for all components
     runtimeClassName: ""
@@ -400,7 +400,7 @@ argo-cd:
           - BackgroundScanReport
           - ClusterBackgroundScanReport
           - UpdateRequest
-  
+
 
     # Argo CD configuration parameters
     ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
