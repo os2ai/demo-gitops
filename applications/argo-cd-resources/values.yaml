@@ -1,4 +1,4 @@
-repoUrl: https://gitlab.deranged.dk:recloud-public/gitops/os2ai-demo.git
+repoUrl: https://gitlab.deranged.dk/recloud-public/gitops/os2ai-demo.git
 
 apps:
   # Basic setup
