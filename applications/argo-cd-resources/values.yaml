@@ -1,4 +1,4 @@
-repoUrl: https://github.com/AarhusAI/demo_deployment.git
+repoUrl: https://gitlab.deranged.dk:recloud-public/gitops/os2ai-demo.git
 
 apps:
   # Basic setup
