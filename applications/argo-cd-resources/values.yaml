@@ -82,7 +82,7 @@ apps:
     valueFiles:
       - values.yaml
 
-  # AarhusAI applications
+  # OS2ai applications
   - name: openwebui
     project: openwebui
     namespace: openwebui
