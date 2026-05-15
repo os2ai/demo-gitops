@@ -131,6 +131,8 @@ litellm:
       disable_error_logs: True
       allow_requests_on_db_unavailable: True
       master_key: os.environ/PROXY_MASTER_KEY
+      store_prompts_in_spend_logs: true
+      maximum_spend_logs_retention_period: 1d
 
     litellm_settings:
       request_timeout: 600
