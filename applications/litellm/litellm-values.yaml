@@ -92,7 +92,7 @@ litellm:
     model_list:
       - model_name: openai/gpt-oss-120b
         litellm_params:
-          model: computerome/openai/gpt-oss-120b
+          model: openai/openai/gpt-oss-120b
           api_key: os.environ/SHLLM_API_KEY
           api_base: https://litellm.shllm.computerome-k8s.dk/v1
 
