@@ -126,7 +126,7 @@ litellm:
         litellm_params:
           guardrail: /app/custom_guardrails/message_overflow.MessageTrimmingGuardrail
           mode: "pre_call"
-          default_on: true
+          default_on: false
         # Optional: default config if not specified per model
         default_config:
           trim_ratio: 0.75
