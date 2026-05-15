@@ -122,7 +122,7 @@ litellm:
         # Optional: default config if not specified per model
         default_config:
           trim_ratio: 0.75
-          max_output_tokens: 2000
+          max_output_tokens: 25000
           safety_buffer: 500
           debug: False
 
