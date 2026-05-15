@@ -92,12 +92,9 @@ litellm:
     model_list:
       - model_name: openai/gpt-oss-120b
         litellm_params:
-          model: openai/openai/gpt-oss-120b
+          model: computerome/openai/gpt-oss-120b
           api_key: os.environ/SHLLM_API_KEY
           api_base: https://litellm.shllm.computerome-k8s.dk/v1
-          max_tokens: 8192
-        guardrails:
-          - message_trimming
 
       - model_name: mistralai/mistral-small-3.2-24b-instruct-2506
         litellm_params:
