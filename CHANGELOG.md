@@ -8,14 +8,35 @@ See [keep a changelog] for information about writing changes to this log.
 
 ## [Unreleased]
 
-* &mdash;
+### Changed
 
-## [0.4.0-rc.0] - 2026-05-06
+* ...
+
+### Added
+
+* ...
+
+### Fixed
+
+* ...
+
+## [0.5.0-rc.0] - 2026-06-09
+
+### Changed
+
+* Upgrade to open-webui 0.8.12
+
+## [0.4.0] - 2026-05-20
 
 ### Changed
 
 * Set admin access to other users chats to disabled (false) as default.
 * Licensed repo under MPL 2.0.
+
+### Added
+
+* Added optional `directoryRecurse` configuration for Argo CD applications to render
+  `spec.source.directory.recurse` when explicitly enabled.
 
 ### Fixed
 
