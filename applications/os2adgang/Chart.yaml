@@ -8,4 +8,4 @@ dependencies:
     repository: https://cloudnative-pg.github.io/charts
   - name: adgangskomponent
     version: 0.1.0-rc.6
-    repository: ghcr.io/os2ai/adgangskomponent
+    repository: https://ghcr.io/os2ai/adgangskomponent
