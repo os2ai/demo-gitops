@@ -1,5 +1,5 @@
 
-os2adgang-pilot:
+adgangskomponent:
   domain: adgang.stgai.itkdev.dk # wishful thinking: adgang.demo.os2ai.dk
 
   realm:
