@@ -136,9 +136,9 @@ apps:
     valueFiles:
       - values.yaml
 
-  - name: os2adgang
-    project: os2adgang
-    namespace: os2adgang
+  - name: adgangskomponent
+    project: adgangskomponent
+    namespace: adgangskomponent
     automated: false
     valueFiles:
       - cloudnative-pg-values.yaml

@@ -9,7 +9,7 @@ spec:
     namespace: keycloak-operator
     server: https://kubernetes.default.svc
   - name: in-cluster
-    namespace: os2adgang
+    namespace: adgangskomponent
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''

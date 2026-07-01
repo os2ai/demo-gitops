@@ -37,7 +37,7 @@ keycloak-operator:
     name: ""
   tolerations: []
   watchNamespaces:
-    - os2adgang
+    - adgangskomponent
 
   keycloakOperatorClusterroleBindingCrb: {}
   keycloakOperatorClusterroleCr: {}

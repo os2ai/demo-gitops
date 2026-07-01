@@ -393,7 +393,7 @@ cloudnative-pg:
     provider: s3
     s3:
       region:
-      bucket: os2adgang-backup-bucket
+      bucket: adgangskomponent-backup-bucket
       path: /
       accessKey: ""
       secretKey: ""
@@ -417,7 +417,7 @@ cloudnative-pg:
       # -- Whether to create a secret for the backup credentials
       create: false
       # -- Name of the backup credentials secret
-      name: os2adgang-backup-bucket-transformed
+      name: adgangskomponent-backup-bucket-transformed
 
     wal:
       # -- WAL compression method. One of `` (for no compression), `gzip`, `bzip2` or `snappy`.

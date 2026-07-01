@@ -1,9 +1,9 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: os2adgang
+  name: adgangskomponent
 spec:
-  name: os2adgang
+  name: adgangskomponent
   owner: admin
   cluster:
     name: cloudnative-pg-cluster

@@ -401,7 +401,6 @@ argo-cd:
           - ClusterBackgroundScanReport
           - UpdateRequest
 
-
     # Argo CD configuration parameters
     ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
     params:

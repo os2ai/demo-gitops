@@ -20,7 +20,19 @@ See [keep a changelog] for information about writing changes to this log.
 
 * ...
 
-## [0.5.0-rc.0] - 2026-06-09
+## [0.6.0-rc.0]
+
+### Changed
+
+* Updated trim message litellm guardrail to support tool call and minor bug fixes.
+
+### Added
+
+* Integration of OS2ai Adgangskomponent, providing authentication with
+  Fælleskommunal Adgangsstyring (FKA). The OS2ai Adgangskomponent runs as a
+  configured Keycloak-instance in the cluster.
+
+## [0.5.0] - 2026-07-01
 
 ### Changed
 

@@ -13,9 +13,6 @@ adgangskomponent:
       rootUrl: https://demo.os2ai.dk/
       adminUrl: https://demo.os2ai.dk/
       baseUrl: https://demo.os2ai.dk/
-      # TODO: should be generated instead of being set here - but we also need to inject in client systems.
-      # We probably need a better approach than simple templating.
-      # An operator creates secrets on demand perhaps?
       secret: eB2mmD1tYX2hrByAJXbl6q6Zj4dvfBvP
       secretGenerationTime: "1769173701"
       redirectUris:
@@ -43,7 +40,7 @@ adgangskomponent:
   db:
     vendor: postgres
     host: cloudnative-pg-cluster-rw
-    database: os2adgang
+    database: adgangskomponent
     usernameSecret:
       name: cloudnative-pg-cluster-admin
       key: username
