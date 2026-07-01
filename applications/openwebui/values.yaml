@@ -273,6 +273,8 @@ open-webui:
         secretKeyRef:
           name: openwebui-secrets
           key: OPENAI_API_KEY
+    - name: DEFAULT_MODEL_PARAMS
+      value: '{"stream_options": {"include_usage": true}}'
 
     # Basic configuration
     - name: ENABLE_PERSISTENT_CONFIG
