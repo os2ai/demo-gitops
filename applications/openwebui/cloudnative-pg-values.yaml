@@ -203,7 +203,7 @@ cloudnative-pg:
     imagePullSecrets: []
 
     storage:
-      size: 8Gi
+      size: 16Gi
       storageClass: ""
 
     walStorage:
