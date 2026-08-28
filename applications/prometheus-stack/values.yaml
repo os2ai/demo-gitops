@@ -192,7 +192,7 @@ prometheus-stack:
       kubeApiserverSlos: true
       kubeControllerManager: true
       kubelet: true
-      kubeProxy: true
+      kubeProxy: false
       kubePrometheusGeneral: true
       kubePrometheusNodeRecording: true
       kubernetesApps: true
@@ -1126,7 +1126,7 @@ prometheus-stack:
 
       ## Size is the expected size of the alertmanager cluster. The controller will eventually make the size of the
       ## running cluster equal to the expected size.
-      replicas: 1
+      replicas: 2
 
       ## Time duration Alertmanager shall retain data for. Default is '120h', and must match the regular expression
       ## [0-9]+(ms|s|m|h) (milliseconds seconds minutes hours).
@@ -1635,7 +1635,42 @@ prometheus-stack:
 
     ## Configure additional grafana datasources (passed through tpl)
     ## ref: https://grafana.com/docs/grafana/latest/administration/provisioning/#datasources
-    additionalDataSources: []
+    additionalDataSources:
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki-headless:3100
+      - name: Tempo
+        type: tempo
+        access: proxy
+        url: http://tempo:3200
+        jsonData:
+          httpMethod: GET
+          serviceMap:
+            datasourceUid: 'prometheus'
+          tracesToLogs:
+            datasourceUid: 'Loki'
+            tags: [ 'job', 'instance', 'pod', 'namespace' ]
+            mappedTags: [
+              { key: 'service.name', value: 'service' },
+              { key: 'service.namespace', value: 'namespace' }
+            ]
+            mapTagNamesEnabled: false
+            spanStartTimeShift: '1h'
+            spanEndTimeShift: '1h'
+            filterByTraceID: false
+            filterBySpanID: false
+          tracesToMetrics:
+            datasourceUid: 'prometheus'
+            tags: [
+              { key: 'service.name', value: 'service' },
+              { key: 'job' }
+            ]
+            queries:
+              - name: 'Sample query'
+                query: 'sum(rate(tempo_spanmetrics_latency_bucket[$__rate_interval])) by (service_name)'
+          nodeGraph:
+            enabled: true
     # - name: prometheus-sample
     #   access: proxy
     #   basicAuth: true
@@ -4418,7 +4453,7 @@ prometheus-stack:
 
       ## enable --web.enable-remote-write-receiver flag on prometheus-server
       ##
-      enableRemoteWriteReceiver: false
+      enableRemoteWriteReceiver: true
 
       ## Name of the external label used to denote replica name
       ##
@@ -4589,7 +4624,7 @@ prometheus-stack:
 
       ## How long to retain metrics
       ##
-      retention: 10d
+      retention: 30d
 
       ## Maximum size of metrics
       ## Unit format should be in the form of "50GiB"
@@ -4697,7 +4732,13 @@ prometheus-stack:
       ## Prometheus StorageSpec for persistent data
       ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
       ##
-      storageSpec: {}
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 40Gi
       ## Using PersistentVolumeClaim
       ##
       #  volumeClaimTemplate:
