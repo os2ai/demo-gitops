@@ -7,405 +7,399 @@ metadata:
   annotations:
      grafana_folder: "common"
 data:
-  helbred-dashboard.yaml: |
-    annotations:
-      - kind: AnnotationQuery
-        spec:
-          query:
-            kind: DataQuery
-            group: grafana
-            version: v0
-            datasource:
-              name: '-- Grafana --'
-            spec: {}
-          enable: true
-          hide: true
-          iconColor: rgba(0, 211, 255, 1)
-          name: Annotations & Alerts
-          builtIn: true
-    cursorSync: 'Off'
-    description: ''
-    editable: true
-    elements:
-      panel-1:
-        kind: Panel
-        spec:
-          id: 1
-          title: 'Helbred: Mistral'
-          description: ''
-          links: []
-          data:
-            kind: QueryGroup
-            spec:
-              queries:
-                - kind: PanelQuery
-                  spec:
-                    query:
-                      kind: DataQuery
-                      group: prometheus
-                      version: v0
-                      datasource:
-                        name: prometheus
-                      spec:
-                        editorMode: builder
-                        expr: probe_success{job="probe/monitoring/chatcheck"}
-                        legendFormat: __auto
-                        range: true
-                    refId: A
-                    hidden: false
-              transformations: []
-              queryOptions: {}
-          vizConfig:
-            kind: VizConfig
-            group: stat
-            version: 13.2.0
-            spec:
-              options:
-                colorMode: background
-                graphMode: none
-                justifyMode: auto
-                orientation: auto
-                percentChangeColorMode: standard
-                reduceOptions:
-                  calcs:
-                    - last
-                  fields: ''
-                  values: false
-                showPercentChange: false
-                textMode: auto
-                wideLayout: true
-              fieldConfig:
-                defaults:
-                  mappings:
-                    - type: value
-                      options:
-                        '0':
-                          text: NEDDE
-                          color: red
-                          index: 1
-                        '1':
-                          text: OPPE
-                          color: green
-                          index: 0
-                  thresholds:
-                    mode: absolute
-                    steps:
-                      - value: 0
-                        color: green
-                  color:
-                    mode: thresholds
-                    fixedColor: '#ad46ff'
-                overrides: []
-      panel-2:
-        kind: Panel
-        spec:
-          id: 2
-          title: 'Helbred: Forside'
-          description: ''
-          links: []
-          data:
-            kind: QueryGroup
-            spec:
-              queries:
-                - kind: PanelQuery
-                  spec:
-                    query:
-                      kind: DataQuery
-                      group: prometheus
-                      version: v0
-                      datasource:
-                        name: prometheus
-                      spec:
-                        editorMode: builder
-                        expr: probe_success{job="probe/monitoring/landingpage"}
-                        legendFormat: __auto
-                        range: true
-                    refId: A
-                    hidden: false
-              transformations: []
-              queryOptions: {}
-          vizConfig:
-            kind: VizConfig
-            group: stat
-            version: 13.2.0
-            spec:
-              options:
-                colorMode: background
-                graphMode: none
-                justifyMode: auto
-                orientation: auto
-                percentChangeColorMode: standard
-                reduceOptions:
-                  calcs:
-                    - last
-                  fields: ''
-                  values: false
-                showPercentChange: false
-                textMode: auto
-                wideLayout: true
-              fieldConfig:
-                defaults:
-                  mappings:
-                    - type: value
-                      options:
-                        '0':
-                          text: NEDE
-                          color: red
-                          index: 1
-                        '1':
-                          text: OPPE
-                          color: green
-                          index: 0
-                  thresholds:
-                    mode: absolute
-                    steps:
-                      - value: 0
-                        color: green
-                  color:
-                    mode: thresholds
-                    fixedColor: '#ad46ff'
-                overrides: []
-      panel-3:
-        kind: Panel
-        spec:
-          id: 3
-          title: 'Svartid: Forside'
-          description: ''
-          links: []
-          data:
-            kind: QueryGroup
-            spec:
-              queries:
-                - kind: PanelQuery
-                  spec:
-                    query:
-                      kind: DataQuery
-                      group: prometheus
-                      version: v0
-                      datasource:
-                        name: prometheus
-                      spec:
-                        editorMode: builder
-                        expr: >-
-                          probe_http_duration_seconds{job="probe/monitoring/landingpage",
-                          phase="resolve"}
-                        legendFormat: __auto
-                        range: true
-                    refId: A
-                    hidden: false
-              transformations: []
-              queryOptions: {}
-          vizConfig:
-            kind: VizConfig
-            group: timeseries
-            version: 13.2.0
-            spec:
-              options:
-                legend:
-                  calcs: []
-                  displayMode: list
-                  placement: bottom
-                  showLegend: false
-                tooltip:
-                  hideZeros: false
-                  mode: single
-                  sort: none
-              fieldConfig:
-                defaults:
-                  thresholds:
-                    mode: percentage
-                    steps:
-                      - value: 0
-                        color: green
-                      - value: 40
-                        color: '#EAB839'
-                      - value: 60
-                        color: red
-                  color:
-                    mode: palette-classic
-                    seriesBy: last
-                  custom:
-                    axisBorderShow: false
-                    axisCenteredZero: false
-                    axisColorMode: text
-                    axisLabel: Sekunder
-                    axisPlacement: auto
-                    axisSoftMax: 0.25
-                    barAlignment: 0
-                    barWidthFactor: 0.6
-                    drawStyle: line
-                    fillOpacity: 27
-                    gradientMode: opacity
-                    hideFrom:
-                      legend: false
-                      tooltip: false
-                      viz: false
-                    insertNulls: false
-                    lineInterpolation: linear
-                    lineStyle:
-                      fill: solid
-                    lineWidth: 1
-                    pointSize: 5
-                    scaleDistribution:
-                      type: linear
-                    showPoints: auto
-                    showValues: false
-                    spanNulls: false
-                    stacking:
-                      group: A
-                      mode: none
-                    thresholdsStyle:
-                      mode: 'off'
-                overrides: []
-      panel-4:
-        kind: Panel
-        spec:
-          id: 4
-          title: 'Svartid: Mistral'
-          description: ''
-          links: []
-          data:
-            kind: QueryGroup
-            spec:
-              queries:
-                - kind: PanelQuery
-                  spec:
-                    query:
-                      kind: DataQuery
-                      group: prometheus
-                      version: v0
-                      datasource:
-                        name: prometheus
-                      spec:
-                        editorMode: builder
-                        expr: >-
-                          probe_http_duration_seconds{job="probe/monitoring/chatcheck",
-                          phase="resolve"}
-                        legendFormat: __auto
-                        range: true
-                    refId: A
-                    hidden: false
-              transformations: []
-              queryOptions: {}
-          vizConfig:
-            kind: VizConfig
-            group: timeseries
-            version: 13.2.0
-            spec:
-              options:
-                legend:
-                  calcs: []
-                  displayMode: list
-                  placement: bottom
-                  showLegend: false
-                tooltip:
-                  hideZeros: false
-                  mode: single
-                  sort: none
-              fieldConfig:
-                defaults:
-                  thresholds:
-                    mode: percentage
-                    steps:
-                      - value: 0
-                        color: green
-                      - value: 40
-                        color: '#EAB839'
-                      - value: 60
-                        color: red
-                  color:
-                    mode: palette-classic
-                    seriesBy: last
-                  custom:
-                    axisBorderShow: false
-                    axisCenteredZero: false
-                    axisColorMode: text
-                    axisLabel: Sekunder
-                    axisPlacement: auto
-                    axisSoftMax: 0.25
-                    barAlignment: 0
-                    barWidthFactor: 0.6
-                    drawStyle: line
-                    fillOpacity: 27
-                    gradientMode: opacity
-                    hideFrom:
-                      legend: false
-                      tooltip: false
-                      viz: false
-                    insertNulls: false
-                    lineInterpolation: linear
-                    lineStyle:
-                      fill: solid
-                    lineWidth: 1
-                    pointSize: 5
-                    scaleDistribution:
-                      type: linear
-                    showPoints: auto
-                    showValues: false
-                    spanNulls: false
-                    stacking:
-                      group: A
-                      mode: none
-                    thresholdsStyle:
-                      mode: 'off'
-                overrides: []
-    layout:
-      kind: AutoGridLayout
-      spec:
-        maxColumnCount: 3
-        columnWidthMode: standard
-        rowHeightMode: standard
-        fillScreen: true
-        items:
-          - kind: AutoGridLayoutItem
-            spec:
-              element:
-                kind: ElementReference
-                name: panel-2
-          - kind: AutoGridLayoutItem
-            spec:
-              element:
-                kind: ElementReference
-                name: panel-1
-          - kind: AutoGridLayoutItem
-            spec:
-              element:
-                kind: ElementReference
-                name: panel-3
-          - kind: AutoGridLayoutItem
-            spec:
-              element:
-                kind: ElementReference
-                name: panel-4
-    links: []
-    liveNow: false
-    preload: false
-    tags: []
-    timeSettings:
-      timezone: browser
-      from: now-6h
-      to: now
-      autoRefresh: ''
-      autoRefreshIntervals:
-        - 5s
-        - 10s
-        - 30s
-        - 1m
-        - 5m
-        - 15m
-        - 30m
-        - 1h
-        - 2h
-        - 1d
-      hideTimepicker: false
-      fiscalYearStartMonth: 0
-    title: Helbred
-    variables: []
-    preferences:
-      layout:
-        kind: AutoGridLayout
-        spec:
-          maxColumnCount: 3
-          columnWidthMode: standard
-          rowHeightMode: standard
-          items: []
+  helbred-dashboard.json: |
+    {{`
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
+      "description": "",
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "liveNow": false,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "green",
+                    "value": 99
+                  }
+                ]
+              },
+              "unit": "percent"
+            }
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 0,
+            "y": 0
+          },
+          "id": 5,
+          "options": {
+            "barShape": "flat",
+            "barWidthFactor": 0.5,
+            "effects": {
+              "barGlow": false,
+              "centerGlow": false,
+              "gradient": true
+            },
+            "endpointMarker": "point",
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "segmentCount": 1,
+            "segmentSpacing": 0.3,
+            "shape": "gauge",
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto",
+            "sparkline": true,
+            "textMode": "auto"
+          },
+          "pluginVersion": "13.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "avg_over_time(probe_success{job=\"probe/monitoring/landingpage\"}[${__range}]) * 100",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Oppetid: Forside",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": 0
+                  },
+                  {
+                    "color": "green",
+                    "value": 99
+                  }
+                ]
+              },
+              "unit": "percent"
+            }
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 8,
+            "y": 0
+          },
+          "id": 6,
+          "options": {
+            "barShape": "flat",
+            "barWidthFactor": 0.5,
+            "effects": {
+              "barGlow": false,
+              "centerGlow": false,
+              "gradient": true
+            },
+            "endpointMarker": "point",
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "segmentCount": 1,
+            "segmentSpacing": 0.3,
+            "shape": "gauge",
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto",
+            "sparkline": true,
+            "textMode": "auto"
+          },
+          "pluginVersion": "13.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "avg_over_time(probe_success{job=\"probe/monitoring/chatcheck\"}[${__range}]) * 100",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Oppetid: Mistral",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 0.25,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 16,
+            "y": 0
+          },
+          "id": 3,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "13.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "builder",
+              "expr": "probe_http_duration_seconds{job=\"probe/monitoring/landingpage\", phase=\"resolve\"}",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Svartid: Forside",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMax": 0.25,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "showValues": false,
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 0,
+            "y": 9
+          },
+          "id": 4,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "13.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "builder",
+              "expr": "probe_http_duration_seconds{job=\"probe/monitoring/chatcheck\", phase=\"resolve\"}",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Svartid: Mistral",
+          "type": "timeseries"
+        }
+      ],
+      "preload": false,
+      "refresh": "",
+      "schemaVersion": 42,
+      "time": {
+        "from": "now-15m",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ]
+      },
+      "timezone": "browser",
+      "title": "Helbred",
+      "version": 1,
+      "uid": "adlqjvm",
+      "id": 719864899559424
+    }
+    `}}
