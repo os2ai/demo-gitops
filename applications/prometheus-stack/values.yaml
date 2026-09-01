@@ -211,7 +211,7 @@ prometheus-blackbox-exporter:
 
   ## Additional secret mounts
   # Defines additional mounts with secrets. Secrets must be manually created in the namespace.
-  extraSecretMounts: []
+  extraSecretMounts:
     # - name: secret-files
     #   mountPath: /etc/secrets
     #   secretName: blackbox-secret-files
