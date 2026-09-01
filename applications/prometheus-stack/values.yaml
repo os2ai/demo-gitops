@@ -190,6 +190,7 @@ prometheus-blackbox-exporter:
           valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
           follow_redirects: true
           preferred_ip_protocol: "ip4"
+          no_compression: true
           bearer_token: /etc/blackbox-exporter/secrets/token
           valid_status_codes: [200]
           body: '{"model":"mistralai/mistral-small-3.2-24b-instruct-2506", "stream": false, "max_tokens": 5, "messages":[{"role":"user","content":"ping"}]}'
