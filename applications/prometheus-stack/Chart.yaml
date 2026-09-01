@@ -9,4 +9,4 @@ dependencies:
   - alias: prometheus-blackbox-exporter
     name: prometheus-blackbox-exporter
     version: 11.18.0
-    repository: oci://ghcr.io/prometheus-community/charts/prometheus-blackbox-exporter
+    repository: oci://ghcr.io/prometheus-community/charts
