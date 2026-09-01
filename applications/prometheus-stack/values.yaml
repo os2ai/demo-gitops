@@ -1,3 +1,5 @@
+domain: demo.os2ai.dk
+
 prometheus-blackbox-exporter:
   global:
     ## Global image registry to use if it needs to be overridden for some specific use cases (e.g local registries, custom images, ...)
@@ -181,6 +183,20 @@ prometheus-blackbox-exporter:
           valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
           follow_redirects: true
           preferred_ip_protocol: "ip4"
+      chat_check:
+        prober: http
+        timeout: 15s
+        http:
+          valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+          follow_redirects: true
+          preferred_ip_protocol: "ip4"
+          bearer_token: /etc/blackbox-exporter/secrets/token
+          valid_status_codes: [200]
+          body: '{"model":"mistralai/mistral-small-3.2-24b-instruct-2506","messages":[{"role":"user","content":"ping"}]}'
+          fail_if_body_not_matches_regexp:
+            - "pong"
+          headers:
+            Content-Type: "application/json"
 
   # Set custom config path, other than default /config/blackbox.yaml. If let empty, path will be "/config/blackbox.yaml"
   # configPath: "/foo/bar"
@@ -201,6 +217,10 @@ prometheus-blackbox-exporter:
     #   secretName: blackbox-secret-files
     #   readOnly: true
     #   defaultMode: 420
+    - name: openwebui-token-volume
+      secretName: openwebui-api-key
+      mountPath: /etc/blackbox-exporter/secrets
+      readOnly: true
 
   resources: {}
     # limits:
