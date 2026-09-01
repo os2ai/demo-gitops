@@ -12,5 +12,5 @@ spec:
     url: prometheus-stack-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
   targets:
     staticConfig:
-      targets:
+      static:
         - https://{{ .Values.domain }}/api/chat/completions
