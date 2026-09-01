@@ -220,7 +220,7 @@ prometheus-blackbox-exporter:
     #   defaultMode: 420
     - name: openwebui-token-volume
       secretName: openwebui-api-key
-      mountPath: /etc/blackbox-exporter/secrets
+      mountPath: /etc/blackbox_exporter/secrets
       readOnly: true
 
   resources: {}
