@@ -460,7 +460,7 @@ open-webui:
 
     # API key generation
     - name: ENABLE_API_KEY
-      value: "False"
+      value: "True"
     - name: ENABLE_API_KEYS_ENDPOINT_RESTRICTIONS
       value: "True"
     - name: API_KEYS_ALLOWED_ENDPOINTS
