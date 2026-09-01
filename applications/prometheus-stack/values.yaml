@@ -187,6 +187,7 @@ prometheus-blackbox-exporter:
         prober: http
         timeout: 15s
         http:
+          method: POST
           valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
           follow_redirects: true
           preferred_ip_protocol: "ip4"
