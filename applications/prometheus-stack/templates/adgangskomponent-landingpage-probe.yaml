@@ -1,16 +1,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: chatcheck
+  name: adgangskomponent-landingpage
   namespace: monitoring
   labels:
     release: prometheus-stack
 spec:
-  interval: 1m
-  module: chat_check
+  interval: 30s
+  module: http_2xx
   prober:
     url: prometheus-stack-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
-        - https://{{ .Values.domain }}/api/chat/completions
+        - https://{{ .Values.adgangskomponentDomain }}/

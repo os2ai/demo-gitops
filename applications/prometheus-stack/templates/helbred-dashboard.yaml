@@ -100,7 +100,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "avg_over_time(probe_success{job=\"probe/monitoring/landingpage\"}[${__range}]) * 100",
+              "expr": "avg_over_time(probe_success{job=\"probe/monitoring/openwebui-landingpage\"}[${__range}]) * 100",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -178,7 +178,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "avg_over_time(probe_success{job=\"probe/monitoring/chatcheck\"}[${__range}]) * 100",
+              "expr": "avg_over_time(probe_success{job=\"probe/monitoring/openwebui-api\"}[${__range}]) * 100",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -271,7 +271,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "builder",
-              "expr": "probe_http_duration_seconds{job=\"probe/monitoring/landingpage\", phase=\"resolve\"}",
+              "expr": "probe_http_duration_seconds{job=\"probe/monitoring/openwebui-landingpage\", phase=\"resolve\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -364,7 +364,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "builder",
-              "expr": "probe_http_duration_seconds{job=\"probe/monitoring/chatcheck\", phase=\"resolve\"}",
+              "expr": "probe_http_duration_seconds{job=\"probe/monitoring/openwebui-api\", phase=\"resolve\"}",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"

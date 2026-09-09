@@ -1,16 +1,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: landingpage
+  name: openwebui-api
   namespace: monitoring
   labels:
     release: prometheus-stack
 spec:
-  interval: 30s
-  module: http_2xx
+  interval: 1m
+  module: openwebui_api
   prober:
     url: prometheus-stack-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
   targets:
     staticConfig:
       static:
-        - https://{{ .Values.domain }}/
+        - https://{{ .Values.domain }}/api/chat/completions
