@@ -184,7 +184,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Oppetid: Mistral",
+          "title": "Oppetid : Open WebUI API",
           "type": "gauge"
         },
         {
@@ -370,7 +370,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Svartid: Mistral",
+          "title": "Svartid: Open WebUI API",
           "type": "timeseries"
         },
         {
