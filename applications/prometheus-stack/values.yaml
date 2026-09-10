@@ -2143,7 +2143,7 @@ prometheus-stack:
                 execErrState: Error
                 for: 10m
                 labels:
-                  severity: warning
+                  severity: info
                 annotations:
                   summary: PVC free capacity is below 30% for {{ "{{" }} $labels.persistentvolumeclaim {{ "}}" }}
       contactpoints.yaml:
