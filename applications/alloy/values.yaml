@@ -35,6 +35,50 @@ alloy:
       create: true
       # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
       content: |-
+        discovery.kubernetes "pods" {
+          role = "pod"
+        }
+
+        discovery.relabel "pod_logs" {
+          targets = discovery.kubernetes.pods.targets
+
+          rule {
+            source_labels = ["__meta_kubernetes_pod_node_name"]
+            regex         = env("NODE_NAME")
+            action        = "keep"
+          }
+
+          rule {
+            source_labels = ["__meta_kubernetes_namespace"]
+            target_label  = "namespace"
+          }
+
+          rule {
+            source_labels = ["__meta_kubernetes_pod_name"]
+            target_label  = "pod"
+          }
+
+          rule {
+            source_labels = ["__meta_kubernetes_pod_container_name"]
+            target_label  = "container"
+          }
+
+          rule {
+            source_labels = ["__meta_kubernetes_pod_node_name"]
+            target_label  = "node"
+          }
+
+          rule {
+            source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+            target_label  = "app"
+          }
+        }
+
+        loki.source.kubernetes "pod_logs" {
+          targets    = discovery.relabel.pod_logs.output
+          forward_to = [loki.write.default.receiver]
+        }
+
         otelcol.receiver.otlp "otlp_receiver" {
           grpc {
             endpoint = "0.0.0.0:4317"
@@ -141,7 +185,11 @@ alloy:
     enableReporting: true
 
     # -- Extra environment variables to pass to the Alloy container.
-    extraEnv: []
+    extraEnv:
+      - name: NODE_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: spec.nodeName
 
     # -- Maps all the keys on a ConfigMap or Secret as environment variables. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#envfromsource-v1-core
     envFrom: []
@@ -219,7 +267,7 @@ alloy:
 
   rbac:
     # -- Whether to create RBAC resources for Alloy.
-    create: false
+    create: true
 
     # -- If set, only create Roles and RoleBindings in the given list of namespaces, rather than ClusterRoles and
     # ClusterRoleBindings. If not using ClusterRoles, bear in mind that Alloy will not be able to discover cluster-scoped
@@ -310,7 +358,7 @@ alloy:
   controller:
     # -- Type of controller to use for deploying Grafana Alloy in the cluster.
     # Must be one of 'daemonset', 'deployment', or 'statefulset'.
-    type: 'deployment'
+    type: 'daemonset'
 
     # -- Number of pods to deploy. Ignored when controller.type is 'daemonset'.
     replicas: 1
