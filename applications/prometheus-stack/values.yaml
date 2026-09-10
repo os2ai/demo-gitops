@@ -1969,12 +1969,11 @@ prometheus-stack:
     enabled: true
     namespaceOverride: ""
 
-    env:
+    envValueFrom:
       GRAFANA_ALERTING_SLACK_URL:
-        valueFrom:
-          secretKeyRef:
-            name: slack-webhook
-            key: slack-webhook-url
+        secretKeyRef:
+          name: slack-webhook
+          key: slack-webhook-url
 
     alerting:
       rules.yaml:
@@ -2099,7 +2098,7 @@ prometheus-stack:
                 - uid: pvc-slack
                   type: slack
                   settings:
-                    url: $GRAFANA_ALERTING_SLACK_URL
+                    url: ${GRAFANA_ALERTING_SLACK_URL}
       policies.yaml:
         apiVersion: 1
         policies:
