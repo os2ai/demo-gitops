@@ -2145,9 +2145,9 @@ prometheus-stack:
           apiVersion: 1
           contactPoints:
             - orgId: 1
-              name: pvc-slack
+              name: slack
               receivers:
-                - uid: pvc-slack
+                - uid: slack
                   type: slack
                   settings:
                     url: ${GRAFANA_ALERTING_SLACK_URL}
@@ -2155,7 +2155,7 @@ prometheus-stack:
         apiVersion: 1
         policies:
           - orgId: 1
-            receiver: pvc-slack
+            receiver: slack
             group_by:
               - alertname
               - namespace
