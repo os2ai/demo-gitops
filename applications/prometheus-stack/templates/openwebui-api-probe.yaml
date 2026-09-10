@@ -13,4 +13,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - https://{{ .Values.domain }}/api/chat/completions
+        - https://{{ .Values.global.openwebuiDomain }}/api/chat/completions

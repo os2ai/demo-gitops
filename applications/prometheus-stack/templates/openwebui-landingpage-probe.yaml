@@ -13,4 +13,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - https://{{ .Values.domain }}/
+        - https://{{ .Values.global.openwebuiDomain }}/

@@ -1,5 +1,7 @@
-domain: demo.os2ai.dk
-adgangskomponentDomain: adgang.stgai.itkdev.dk
+global:
+  openwebuiDomain: demo.os2ai.dk
+  adgangskomponentDomain: adgang.stgai.itkdev.dk
+  grafanaDomain: grafana.komm01.computerome-k8s.dk
 
 prometheus-blackbox-exporter:
   global:
@@ -1969,6 +1971,10 @@ prometheus-stack:
     enabled: true
     namespaceOverride: ""
 
+    grafana.ini:
+      server:
+        root_url: https://{{ $.Values.global.grafanaDomain }}
+
     envValueFrom:
       GRAFANA_ALERTING_SLACK_URL:
         secretKeyRef:
@@ -2028,7 +2034,7 @@ prometheus-stack:
                       intervalMs: 1000
                       maxDataPoints: 43200
                       refId: B
-                      type: classic_conditions
+                      type: threshold
                 noDataState: NoData
                 execErrState: Error
                 for: 10m
@@ -2080,7 +2086,7 @@ prometheus-stack:
                       intervalMs: 1000
                       maxDataPoints: 43200
                       refId: B
-                      type: classic_conditions
+                      type: threshold
                 noDataState: NoData
                 execErrState: Error
                 for: 10m
@@ -2132,7 +2138,7 @@ prometheus-stack:
                       intervalMs: 1000
                       maxDataPoints: 43200
                       refId: B
-                      type: classic_conditions
+                      type: threshold
                 noDataState: NoData
                 execErrState: Error
                 for: 10m
@@ -2289,7 +2295,7 @@ prometheus-stack:
       # hosts:
       #   - grafana.domain.com
       hosts:
-        - grafana.komm01.computerome-k8s.dk
+        - '{{ $.Values.global.grafanaDomain }}'
 
       ## Path for grafana ingress
       path: /
@@ -2300,7 +2306,7 @@ prometheus-stack:
       tls:
         - secretName: grafana-general-tls
           hosts:
-            - grafana.komm01.computerome-k8s.dk
+            - '{{ $.Values.global.grafanaDomain }}'
 
     # # To make Grafana persistent (Using Statefulset)
     # #

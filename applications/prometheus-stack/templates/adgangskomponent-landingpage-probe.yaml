@@ -13,4 +13,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - https://{{ .Values.adgangskomponentDomain }}/
+        - https://{{ .Values.global.adgangskomponentDomain }}/
