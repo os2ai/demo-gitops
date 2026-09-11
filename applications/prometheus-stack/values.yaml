@@ -924,6 +924,7 @@ prometheus-stack:
                 notify: daily
               annotations:
                 summary: "PVC capacity is above 80% for {{ $labels.persistentvolumeclaim }}"
+                description: 'PVC {{ $labels.persistentvolumeclaim }} in namespace {{ $labels.namespace }} is {{ printf "%.1f" $value }}% full.'
 
   ##
   global:
@@ -1159,7 +1160,7 @@ prometheus-stack:
         - target_matchers:
             - 'alertname = InfoInhibitor'
       route:
-        group_by: ['namespace']
+        group_by: ['alertname', 'namespace']
         group_wait: 30s
         group_interval: 5m
         repeat_interval: 12h
@@ -1208,7 +1209,19 @@ prometheus-stack:
     ## ref: https://prometheus.io/docs/alerting/notifications/
     ##      https://prometheus.io/docs/alerting/notification_examples/
     ##
-    templateFiles: {}
+    templateFiles:
+      slack.tmpl: |-
+        {{ define "slack.default.title" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ else }}:{{ .Alerts.Resolved | len }}{{ end }}] {{ .GroupLabels.SortedPairs.Values | join " " }}{{ end }}
+
+        {{/* Drop the default title link: it points at the cluster-internal Alertmanager UI */}}
+        {{ define "slack.default.titlelink" }}{{ end }}
+
+        {{ define "slack.default.text" }}
+        {{ range .Alerts }}{{ with .Annotations.summary }}*{{ . }}*
+        {{ end }}{{ with .Annotations.description }}{{ . }}
+        {{ end }}Severity: `{{ .Labels.severity }}`{{ with .Labels.namespace }} · Namespace: `{{ . }}`{{ end }}{{ with .Labels.persistentvolumeclaim }} · PVC: `{{ . }}`{{ end }}{{ with .Labels.instance }} · Instance: `{{ . }}`{{ end }}
+
+        {{ end }}{{ end }}
     #
     ## An example template:
     #   template_1.tmpl: |-
