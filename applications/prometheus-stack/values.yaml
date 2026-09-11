@@ -2022,13 +2022,9 @@ prometheus-stack:
             interval: 15m
             rules:
               # Fires when a postgres instance logs a WAL archiving error
-              # within the last 15m. Presence-based, so every failing instance
-              # gets its own alert instance (grouped by the CNPG logging_pod
-              # JSON field). CNPG only archives WAL on the primary, so a
-              # broken archiver means backups are broken cluster-wide.
               - uid: wal-archive-errors
                 title: Postgres WAL archiving is failing
-                condition: B
+                condition: A
                 no_data_state: OK
                 exec_err_state: Error
                 labels:
@@ -2046,15 +2042,6 @@ prometheus-stack:
                       expr: count by (logging_pod) (count_over_time({service_name="postgres"} | json | logger="wal-archive" | level="error" [15m]))
                       maxDataPoints: 43200
                       intervalMs: 900000
-                  - refId: B
-                    relativeTimeRange:
-                      from: 0
-                      to: 0
-                    datasourceUid: __expr__
-                    model:
-                      type: math
-                      expression: $A > 0
-                      refId: B
       contactpoints.yaml:
         apiVersion: 1
         contactPoints:
@@ -2070,9 +2057,12 @@ prometheus-stack:
         policies:
           - orgId: 1
             receiver: slack
+            ## Group by logging_pod as well so each failing postgres pod gets
+            ## its own Slack message instead of one grouped notification.
             group_by:
               - grafana_folder
               - alertname
+              - logging_pod
 
     ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
     ##
