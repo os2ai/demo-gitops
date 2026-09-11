@@ -2018,6 +2018,7 @@ prometheus-stack:
         groups:
           - orgId: 1
             name: loki-alerts
+            folder: GitOps Alerts
             interval: 15m
             rules:
               # Fires when the postgres cluster has not archived a single WAL
