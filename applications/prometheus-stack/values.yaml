@@ -917,8 +917,8 @@ prometheus-stack:
         - name: pvc-capacity
           rules:
             - alert: PVCCapacityAbove80
-              expr: 100 * (1 - kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes) > 80
-              for: 10m
+              expr: 100 * (1 - kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes) > 20
+              for: 1m
               labels:
                 severity: critical
                 notify: daily
