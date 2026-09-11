@@ -1987,8 +1987,78 @@ prometheus-stack:
       server:
         root_url: https://{{ $.Values.global.grafanaDomain }}
 
-    ## All alerting is handled by Prometheus + Alertmanager (see
+    ## Metric alerts are handled by Prometheus + Alertmanager (see
     ## additionalPrometheusRulesMap and alertmanager.config above).
+    ## Grafana alerting is used only for log-based alerts on Loki below.
+
+    ## Slack webhook for the Grafana alerting contact point (same sealed
+    ## secret that Alertmanager uses).
+    envValueFrom:
+      GRAFANA_ALERTING_SLACK_URL:
+        secretKeyRef:
+          name: slack-webhook
+          key: slack-webhook-url
+
+    alerting:
+      rules.yaml:
+        apiVersion: 1
+        groups:
+          - orgId: 1
+            name: loki-alerts
+            folder: General
+            interval: 15m
+            rules:
+              # Fires when the postgres cluster has not archived a single WAL
+              # segment within the last 24h, i.e. WAL archiving (backups) is
+              # broken. "or vector(0)" makes the query return 0 when no log
+              # lines match, so the rule can actually fire on absence.
+              - uid: wal-archive-stalled
+                title: Postgres WAL backups are not archiving
+                condition: B
+                no_data_state: Alerting
+                exec_err_state: Error
+                labels:
+                  severity: critical
+                data:
+                  - refId: A
+                    relativeTimeRange:
+                      from: 86400
+                      to: 0
+                    datasourceUid: Loki
+                    model:
+                      datasourceUid: Loki
+                      queryType: instant
+                      editorMode: code
+                      expr: max(count_over_time({service_name="postgres"} | json | logger="wal-archive" | msg="Archived WAL file" [24h])) or vector(0)
+                      maxDataPoints: 43200
+                      intervalMs: 900000
+                  - refId: B
+                    relativeTimeRange:
+                      from: 0
+                      to: 0
+                    datasourceUid: __expr__
+                    model:
+                      type: math
+                      expression: $A < 1
+                      refId: B
+      contactpoints.yaml:
+        apiVersion: 1
+        contactPoints:
+          - orgId: 1
+            name: slack
+            receivers:
+              - uid: slack
+                type: slack
+                settings:
+                  url: ${GRAFANA_ALERTING_SLACK_URL}
+      policies.yaml:
+        apiVersion: 1
+        policies:
+          - orgId: 1
+            receiver: slack
+            group_by:
+              - grafana_folder
+              - alertname
 
     ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
     ##
@@ -2238,6 +2308,7 @@ prometheus-stack:
     ## ref: https://grafana.com/docs/grafana/latest/administration/provisioning/#datasources
     additionalDataSources:
       - name: Loki
+        uid: Loki
         type: loki
         access: proxy
         url: http://loki-headless:3100
