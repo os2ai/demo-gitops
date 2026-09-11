@@ -2040,6 +2040,7 @@ prometheus-stack:
                 for: 10m
                 labels:
                   severity: warning
+                  notify: daily
                 annotations:
                   summary: PVC capacity is above 80% for {{ "{{" }} $labels.persistentvolumeclaim {{ "}}" }}
               - uid: pvc-capacity-critical
@@ -2092,6 +2093,7 @@ prometheus-stack:
                 for: 10m
                 labels:
                   severity: critical
+                  notify: daily
                 annotations:
                   summary: PVC capacity is above 90% for {{ "{{" }} $labels.persistentvolumeclaim {{ "}}" }}
       contactpoints.yaml:
@@ -2114,6 +2116,12 @@ prometheus-stack:
               - alertname
               - namespace
               - persistentvolumeclaim
+            routes:
+              # Alerts labelled notify=daily are re-notified at most once per day while firing
+              - receiver: slack
+                matchers:
+                  - notify = daily
+                repeat_interval: 24h
 
     ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
     ##
