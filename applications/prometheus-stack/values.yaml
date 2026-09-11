@@ -2094,58 +2094,6 @@ prometheus-stack:
                   severity: critical
                 annotations:
                   summary: PVC capacity is above 90% for {{ "{{" }} $labels.persistentvolumeclaim {{ "}}" }}
-              - uid: pvc-free-capacity-warning
-                title: PVC free capacity below 30%
-                condition: B
-                data:
-                  - refId: A
-                    relativeTimeRange:
-                      from: 600
-                      to: 0
-                    datasourceUid: prometheus
-                    model:
-                      editorMode: code
-                      expr: 100 * (1 - kubelet_volume_stats_available_bytes / kubelet_volume_stats_capacity_bytes)
-                      instant: true
-                      intervalMs: 1000
-                      maxDataPoints: 43200
-                      range: false
-                      refId: A
-                  - refId: B
-                    relativeTimeRange:
-                      from: 600
-                      to: 0
-                    datasourceUid: -100
-                    model:
-                      conditions:
-                        - evaluator:
-                            params:
-                              - 30
-                            type: lt
-                          operator:
-                            type: and
-                          query:
-                            params:
-                              - A
-                          reducer:
-                            params: []
-                            type: last
-                          type: query
-                      datasource:
-                        type: __expr__
-                        uid: -100
-                      expression: A
-                      intervalMs: 1000
-                      maxDataPoints: 43200
-                      refId: B
-                      type: threshold
-                noDataState: NoData
-                execErrState: Error
-                for: 10m
-                labels:
-                  severity: info
-                annotations:
-                  summary: PVC free capacity is below 30% for {{ "{{" }} $labels.persistentvolumeclaim {{ "}}" }}
       contactpoints.yaml:
         secret:
           apiVersion: 1
