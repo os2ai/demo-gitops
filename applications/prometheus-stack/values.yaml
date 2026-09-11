@@ -2042,6 +2042,110 @@ prometheus-stack:
                       expr: count by (logging_pod) (count_over_time({service_name="postgres"} | json | logger="wal-archive" | level="error" [15m]))
                       maxDataPoints: 43200
                       intervalMs: 900000
+          ## One rule per blackbox probe. Each fires when its probe has
+          ## returned failure for the entire last 5 minutes (max_over_time == 0
+          ## means every sample in the window failed). The count() wrapper
+          ## makes the query return a value only while failing, so a healthy
+          ## probe yields NoData which resolves (no_data_state: OK). Separate
+          ## rules give a separate alert (and Slack message) per probe.
+          - orgId: 1
+            name: blackbox-alerts
+            folder: GitOps Alerts
+            interval: 1m
+            rules:
+              - uid: probe-openwebui-landingpage-down
+                title: Open WebUI landing page is down
+                condition: A
+                no_data_state: OK
+                exec_err_state: Error
+                labels:
+                  severity: critical
+                data:
+                  - refId: A
+                    relativeTimeRange:
+                      from: 300
+                      to: 0
+                    datasourceUid: prometheus
+                    model:
+                      datasourceUid: prometheus
+                      queryType: instant
+                      editorMode: code
+                      expr: count by (job, instance) (max_over_time(probe_success{job="probe/monitoring/openwebui-landingpage"}[5m]) == 0)
+                      maxDataPoints: 43200
+                      intervalMs: 60000
+              - uid: probe-openwebui-api-down
+                title: Open WebUI API is down
+                condition: A
+                no_data_state: OK
+                exec_err_state: Error
+                labels:
+                  severity: critical
+                data:
+                  - refId: A
+                    relativeTimeRange:
+                      from: 300
+                      to: 0
+                    datasourceUid: prometheus
+                    model:
+                      datasourceUid: prometheus
+                      queryType: instant
+                      editorMode: code
+                      expr: count by (job, instance) (max_over_time(probe_success{job="probe/monitoring/openwebui-api"}[5m]) == 0)
+                      maxDataPoints: 43200
+                      intervalMs: 60000
+              - uid: probe-adgangskomponent-landingpage-down
+                title: Adgangskomponent landing page is down
+                condition: A
+                no_data_state: OK
+                exec_err_state: Error
+                labels:
+                  severity: critical
+                data:
+                  - refId: A
+                    relativeTimeRange:
+                      from: 300
+                      to: 0
+                    datasourceUid: prometheus
+                    model:
+                      datasourceUid: prometheus
+                      queryType: instant
+                      editorMode: code
+                      expr: count by (job, instance) (max_over_time(probe_success{job="probe/monitoring/adgangskomponent-landingpage"}[5m]) == 0)
+                      maxDataPoints: 43200
+                      intervalMs: 60000
+              ## Catches the blackbox exporter itself dying: probe_success
+              ## series go missing (not 0), which the rules above treat as OK.
+              ## "or vector(0)" makes the query always return a value, so the
+              ## math condition never hits DatasourceNoData on the query node.
+              - uid: blackbox-no-probe-results
+                title: Blackbox exporter is not producing probe results
+                condition: B
+                no_data_state: OK
+                exec_err_state: Error
+                labels:
+                  severity: critical
+                data:
+                  - refId: A
+                    relativeTimeRange:
+                      from: 300
+                      to: 0
+                    datasourceUid: prometheus
+                    model:
+                      datasourceUid: prometheus
+                      queryType: instant
+                      editorMode: code
+                      expr: count(max_over_time(probe_success{job=~"probe/monitoring/.*"}[5m])) or vector(0)
+                      maxDataPoints: 43200
+                      intervalMs: 60000
+                  - refId: B
+                    relativeTimeRange:
+                      from: 0
+                      to: 0
+                    datasourceUid: __expr__
+                    model:
+                      type: math
+                      expression: $A < 1
+                      refId: B
       contactpoints.yaml:
         apiVersion: 1
         contactPoints:
