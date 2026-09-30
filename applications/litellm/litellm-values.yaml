@@ -90,7 +90,7 @@ litellm:
   #  Reference: https://docs.litellm.ai/docs/proxy/configs
   proxy_config:
     model_list:
-      - model_name: openai/google/gemma-4-26B-A4B-it
+      - model_name: google/gemma-4-26B-A4B-it
         litellm_params:
           model: openai/google/gemma-4-26B-A4B-it
           api_key: os.environ/SHLLM_API_KEY
