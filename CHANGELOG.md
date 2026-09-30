@@ -6,28 +6,33 @@ All notable changes to this project will be documented in this file.
 
 See [keep a changelog] for information about writing changes to this log.
 
-## [Unreleased]
-
-### Changed
-
-* ...
+## [0.7.0-rc.0]
 
 ### Added
 
-* ...
-
-### Fixed
-
-* ...
-
-## [0.6.0-rc.1]
+* Add openai/gpt-oss-120b model.
+* Add google/gemma-4-26B-A4B-it model.
+* Added agentic search tool and config to enabled it.
+  See https://github.com/aarhusai/search-agent/pkgs/container/search-agent
+* Updated open-webui to new patch version v0.9.6-7 (added search patch)
 
 ### Changed
 
-* Upgraded open-webui to 0.9.6
-  This release contains a new patch to fix token count doing embedding (https://github.com/AarhusAI/open-webui/pull/53)
-* Changed tool calling to native for better model tool support (will also be default in 0.10.x)
-* Updated chunk size to match embedding model - 500 tokens.
+* Set ENABLE_VERSION_UPDATE_CHECK to false.
+  Removing the version pop-up from the openwebui UI.
+* Always include streaming usage. always_include_stream_usage: true
+  Allows for openwebui to display token usage in it's analytics UI.
+* Disable grafana ingress by default
+  kube-prometheus-stack 73.2.2 uses a public known admin password that requires immediate change as not to expose the grafana service virtually unprotected.
+* Disable open-webui OTEL Metrics
+  The same information is found in the ingress/service logs and avoids a cardinality explosion in the end exhausting the disk space.
+* Designate a dedicated PVC to WAL storage.
+  Backups should no longer be able to exhausts the postgress cluster pods of disk space, preventing db crashes and therefore openwebui crashes due to unavailable postgress db.
+
+## [0.6.0] 2026-08-24
+
+### Changed
+
 * Updated trim message litellm guardrail to support tool call and minor bug fixes.
 
 ### Added
@@ -35,6 +40,15 @@ See [keep a changelog] for information about writing changes to this log.
 * Integration of OS2ai Adgangskomponent, providing authentication with
   Fælleskommunal Adgangsstyring (FKA). The OS2ai Adgangskomponent runs as a
   configured Keycloak-instance in the cluster.
+
+## [0.5.1] - 2026-08-24
+
+### Changed
+
+* Upgraded open-webui to 0.9.6
+  This release contains a new patch to fix token count doing embedding (https://github.com/AarhusAI/open-webui/pull/53)
+* Changed tool calling to native for better model tool support (will also be default in 0.10.x)
+* Updated chunk size to match embedding model - 500 tokens.
 
 ## [0.5.0] - 2026-07-01
 
