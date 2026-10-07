@@ -15,6 +15,21 @@ See [keep a changelog] for information about writing changes to this log.
   write (create, update, patch) on the transformed secret — previously
   verbs ["*"] on both. Fixes #60.
 
+### Added
+
+* argo-cd-resources: optional per-app `ignoreDifferences` passthrough in
+  the Application template, for apps whose live state is legitimately
+  mutated after sync (operator-managed fields, HPA-managed replicas).
+  Fixes #70.
+
+# Changed
+
+* ...
+
+# Fixed
+
+* Cleaned up some comments and empty fields not in use in helm templating
+
 ## [0.7.0-rc.0]
 
 ### Added
