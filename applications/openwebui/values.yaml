@@ -422,7 +422,7 @@ open-webui:
     - name: RAG_EMBEDDING_ENGINE
       value: "openai"
     - name: CHUNK_SIZE
-      value: "350"
+      value: "250"
     - name: CHUNK_OVERLAP
       value: "50"
     - name: RAG_TEXT_SPLITTER
