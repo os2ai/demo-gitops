@@ -10,27 +10,43 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Security
 
+* ...
+
+### Added
+
+* ...
+
+### Changed
+
+* ...
+
+### Fixed
+
+* Cleaned up some comments and empty fields not in use in helm templating
+
+## [0.8.0-rc.0] 2026-10-21
+
+### Security
+
 * backup-bucket-transformer Roles trimmed to least privilege (litellm,
   openwebui, adgangskomponent): read (get, watch) on the source OBC secret,
   write (create, update, patch) on the transformed secret — previously
   verbs ["*"] on both. Fixes #60.
 
-### Added
+### Changed
 
-* argo-cd-resources: optional per-app `ignoreDifferences` passthrough in
-  the Application template, for apps whose live state is legitimately
-  mutated after sync (operator-managed fields, HPA-managed replicas).
-  Fixes #70.
+* Updated open-webui to version 0.11.3 (recommend to set replica count to 1 before upgrade and restore after).
+  See https://github.com/open-webui/open-webui/releases#release-v0.11.3 a lot have changed since 0.9.6.
+* Removed support for Authentik service. The service is not in use outside of
+  AarhusAI, as far as we know, and is an alternative to adgangskomponent, which
+  we now primarily support. Unless custom work has been done on Authentik
+  integration in a cluster, this should have no impact.
 
-# Changed
-
-* ...
-
-# Fixed
+### Fixed
 
 * Cleaned up some comments and empty fields not in use in helm templating
 
-## [0.7.0-rc.0]
+## [0.7.0] 2026-10-19
 
 ### Added
 
@@ -139,6 +155,8 @@ See [keep a changelog] for information about writing changes to this log.
 * Disabled SSO in Open-WebUI.
 
 [Unreleased]: https://github.com/os2ai/documentation/compare/0.1.1...HEAD
+[0.5.0]: https://github.com/os2ai/documentation/compare/0.4.0...0.5.0
+[0.4.0]: https://github.com/os2ai/documentation/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/os2ai/documentation/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/os2ai/documentation/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/os2ai/documentation/compare/0.1.0...0.1.1
