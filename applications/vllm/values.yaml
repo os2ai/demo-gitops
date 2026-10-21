@@ -132,7 +132,7 @@ vllm:
 
         modelURL: "intfloat/multilingual-e5-large"
 
-        replicaCount: 0
+        replicaCount: 1
 
         requestCPU: 2
         requestMemory: "16Gi"
