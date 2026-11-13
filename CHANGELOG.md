@@ -18,7 +18,11 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Changed
 
-* ...
+* Patch-version bumps of the background services' images within the
+  same minor: openwebui's bundled redis `7.4.2-alpine3.21` -> `7.4.12-alpine3.21`,
+  argo-cd's bundled redis `8.2.2-alpine` -> `8.2.11-alpine` and its
+  redis_exporter `v1.80.1` -> `v1.80.2`, and the vllm runtime image for
+  gpt-oss-120b `v0.20.1` -> `v0.20.2`. No configuration changes.
 
 ### Fixed
 
