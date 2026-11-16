@@ -207,8 +207,8 @@ cloudnative-pg:
       storageClass: ""
 
     walStorage:
-      enabled: false
-      size: 1Gi
+      enabled: true
+      size: 8Gi
       storageClass: ""
 
     # -- The UID of the postgres user inside the image, defaults to 26
@@ -394,7 +394,7 @@ cloudnative-pg:
     s3:
       region:
       bucket: adgangskomponent-backup-bucket
-      path: /
+      path: /v2/
       accessKey: ""
       secretKey: ""
       # -- Use the role based authentication without providing explicitly the keys
