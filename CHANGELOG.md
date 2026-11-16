@@ -18,6 +18,9 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Changed
 
+* search-agent: default search provider switched from `staan` to `searxng`,
+  so an out-of-the-box install uses the self-hosted SearXNG instead of the
+  commercial Staan.ai API.
 * Patch-version bumps of the background services' images within the
   same minor: openwebui's bundled redis `7.4.2-alpine3.21` -> `7.4.12-alpine3.21`,
   argo-cd's bundled redis `8.2.2-alpine` -> `8.2.11-alpine` and its
