@@ -18,6 +18,16 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Changed
 
+* ...
+
+### Fixed
+
+* ...
+
+## [0.8.1-rc.0] 2026-11-16
+
+### Changed
+
 * search-agent: default search provider switched from `staan` to `searxng`,
   so an out-of-the-box install uses the self-hosted SearXNG instead of the
   commercial Staan.ai API.
