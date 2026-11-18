@@ -24,6 +24,16 @@ See [keep a changelog] for information about writing changes to this log.
 
 * ...
 
+## [0.8.1-rc.1] 2026-11-18
+
+### Added
+
+* litellm: template-time guard rejecting non-ASCII characters (e.g. æ/ø/å)
+  in model names. LiteLLM >= 1.109 echoes them back in `x-litellm-*`
+  response headers and Open WebUI crashes on non-ASCII bytes, failing
+  every chat with such a model; the chart now fails to template instead.
+  All site model names are already ASCII, so no changes to the stack.
+
 ## [0.8.1-rc.0] 2026-11-16
 
 ### Changed
