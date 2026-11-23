@@ -18,8 +18,10 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Changed
 
-* keycloak-operator: the Keycloak server image is pinned to `26.8.2` via
-  `keycloakImage.tag` (previously the chart-bundled default `26.5.1`), and
+* keycloak-operator: the operator is bumped to
+  `1.0.20261114010305` (bundles Keycloak `26.8.2` as `appVersion`), the
+  Keycloak server image is pinned to `26.8.2` via `keycloakImage.tag`
+  (previously the chart-bundled default `26.5.1`), and
   the Adgangskomponent keycloak-exporter image is bumped to
   `quay.io/keycloak/keycloak:26.8.2` to match, now running at `replicas: 1`
   (previously scaled to 0) as a canary for the image in the demo tenant.
