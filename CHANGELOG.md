@@ -18,7 +18,12 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Changed
 
-* ...
+* keycloak-operator: the Keycloak server image is pinned to `26.5.7` via
+  `keycloakImage.tag` (previously the chart-bundled default `26.5.1`), and
+  the Adgangskomponent keycloak-exporter sidecar image is bumped to
+  `quay.io/keycloak/keycloak:26.5.7` to match. Same minor stream, so the
+  operator's `Auto` update strategy performs a zero-downtime rolling
+  update.
 
 ### Fixed
 
