@@ -18,7 +18,14 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Changed
 
-* ...
+* keycloak-operator: the Keycloak server image is pinned to `26.8.2` via
+  `keycloakImage.tag` (previously the chart-bundled default `26.5.1`), and
+  the Adgangskomponent keycloak-exporter sidecar image is bumped to
+  `quay.io/keycloak/keycloak:26.8.2` to match. Minor-version bump, so the
+  operator's `Auto` update strategy performs a recreate update with a brief
+  outage; OIDC clients calling the Admin REST API with their own tokens
+  must also assign the new `kc-admin-api` client scope (26.8.2 audience
+  check).
 
 ### Fixed
 
