@@ -18,7 +18,10 @@ See [keep a changelog] for information about writing changes to this log.
 
 ### Changed
 
-* ...
+* litellm: patch bump `1.109.1` -> `1.109.3` (image
+  `ghcr.io/berriai/litellm-database:1.109.3`). Stays within the 1.109 line
+  the tenant is pinned to; picks up the two upstream patch fixes, no
+  configuration changes.
 
 ### Fixed
 
