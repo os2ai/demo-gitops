@@ -35,6 +35,15 @@ See [keep a changelog] for information about writing changes to this log.
 
 * ...
 
+## [0.9.0-rc.0] 2026-11-27
+
+### Changed
+
+* openwebui: bumped the Open WebUI image from `v0.11.3-4` to `v0.13.3-1`
+  (upstream 0.13.3 with the OS2ai patch set rebased). Recommendation: set
+  `replicaCount` to 1 before upgrading and restore it afterwards.
+  See https://github.com/open-webui/open-webui/releases/tag/v0.13.3.
+
 ## [0.8.1-rc.1] 2026-11-18
 
 ### Added
